@@ -1,10 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+
+
 //================================
 const mongoose = require('mongoose');
 var cors = require('cors');
 
-mongoose.connect('mongodb+srv://retroracer:retro9182@apidatabase.xowbpyv.mongodb.net/?retryWrites=true&w=majority',{
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@apidatabase.xowbpyv.mongodb.net/?retryWrites=true&w=majority`,{
      useNewUrlParser: true,
      useUnifiedTopology: true
 });
