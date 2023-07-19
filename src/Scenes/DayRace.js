@@ -79,7 +79,7 @@ class DayRace extends Phaser.Scene {
     }
 
     loadAssets() {
-        this.load.image('score_race', '/assets/background/score_race.png');
+        this.load.image('score_race', 'assets/background/score_race.png');
         this.load.image('pauseButton', 'assets/pause.png');
         this.load.image('logo', 'assets/logo.png');
         this.load.image('road', 'assets/background/pista.png');
