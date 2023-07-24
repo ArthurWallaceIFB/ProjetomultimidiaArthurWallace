@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exemplo de Tabela de Rankings</title>
+    <style>
+        body {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        #ranking-container{
+            padding: 20px 50px 80px 50px;
+            background-color: #1e1a4ee8;
+        }
+        #ranking-container p{
+            color: #fff;
+            font-size: 30px;
+            font-weight: lighter;
+            text-align: center;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        table {
+            background-color: #1e1a4e50;
+            color: #fff;
+            border-collapse: collapse;
+            width: 30%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ffffff88;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #743385;
+            font-weight: lighter;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ranking-container">
+        <p>⭐️ Ranking ⭐️</p>
+        <div class="table-container">
+            <!-- Tabela para a dificuldade "Fácil" -->
+            <table id="tabelaFacil">
+                <tr>
+                    <th colspan="2">Fácil</th>
+                </tr>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Tempo</th>
+                </tr>
+            </table>
+
+            <!-- Tabela para a dificuldade "Médio" -->
+            <table id="tabelaMedio">
+                <tr>
+                    <th colspan="2">Médio</th>
+                </tr>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Tempo</th>
+                </tr>
+            </table>
+
+            <!-- Tabela para a dificuldade "Difícil" -->
+            <table id="tabelaDificil">
+                <tr>
+                    <th colspan="2">Difícil</th>
+                </tr>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Tempo</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -5,6 +5,7 @@ const RankingSchema = new mongoose.Schema(
       record: Number,
       old_record: Number,
       _idUser: {
+         ref: 'User',
          type: mongoose.Schema.Types.ObjectId,
          required: true
       },

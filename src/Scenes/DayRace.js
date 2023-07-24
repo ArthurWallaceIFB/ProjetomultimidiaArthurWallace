@@ -28,7 +28,7 @@ class DayRace extends Phaser.Scene {
             case "fácil":
                 this.carSpeedBase = 80;
                 this.bgSpeed = 0.7;
-                this.carXSpeed = 300;
+                this.carXSpeed = 500;
                 break;
             case "médio":
                 this.carSpeedBase = 90;

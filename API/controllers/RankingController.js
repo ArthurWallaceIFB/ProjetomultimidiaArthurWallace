@@ -4,7 +4,7 @@ const Ranking = require('../models/Ranking');
 module.exports = {
   // lista todos usuarios
   async show(req, res) {
-    let rankings = await Ranking.find();
+    let rankings = await Ranking.find().populate('_idUser', 'nickname');
     return res.json(rankings);
   },
   //lista com filtro "email"
