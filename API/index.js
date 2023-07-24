@@ -7,7 +7,15 @@ const cors = require('cors');
 
 require('dotenv').config({ path: 'API/.env' })
 
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@apidatabase.xowbpyv.mongodb.net/?retryWrites=true&w=majority`, {
+let user = process.env.MONGO_USER;
+let pass = process.env.MONGO_PASSWORD;
+
+if(!user || !pass){
+     user = "retroracer";
+     pass = "retro9182";
+}
+
+mongoose.connect(`mongodb+srv://${user}:${pass}@apidatabase.xowbpyv.mongodb.net/?retryWrites=true&w=majority`, {
      useNewUrlParser: true,
      useUnifiedTopology: true
 });
