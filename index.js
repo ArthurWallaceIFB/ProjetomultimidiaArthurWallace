@@ -19,8 +19,11 @@ const config = {
             //debug: true
         }
     },
+    dom: {
+        createContainer: true
+    },
     // scene: [MainMenuScene, DayRace, DifficultyScene, GameOverScene, PauseScene, CongratulationsScene]
-    scene: [DayRace, MainMenuScene, DifficultyScene, GameOverScene, PauseScene, CongratulationsScene]
+    scene: [MainMenuScene, DifficultyScene, DayRace, GameOverScene, PauseScene, CongratulationsScene]
 };
 
 const game = new Phaser.Game(config);

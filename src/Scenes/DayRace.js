@@ -24,19 +24,19 @@ class DayRace extends Phaser.Scene {
     init(data) {
         this.difficulty = data.difficulty;
 
-        switch(this.difficulty){
+        switch (this.difficulty) {
             case "fácil":
-                this.carSpeedBase = 50;
-                this.bgSpeed = 4;
+                this.carSpeedBase = 80;
+                this.bgSpeed = 0.7;
                 this.carXSpeed = 300;
                 break;
             case "médio":
-                this.carSpeedBase = 100;
-                this.bgSpeed = 5;
+                this.carSpeedBase = 90;
+                this.bgSpeed = 0.8;
                 this.carXSpeed = 600;
                 break;
             case "difícil":
-                this.carSpeedBase = 200;
+                this.carSpeedBase = 100;
                 this.bgSpeed = 1;
                 this.carXSpeed = 800;
                 break;
@@ -92,7 +92,7 @@ class DayRace extends Phaser.Scene {
         this.load.image('car6', 'assets/players/car6.png');
         this.load.image('cone', 'assets/cone.png');
         this.load.image('finish_line', 'assets/background/teste_pista.png');
-        
+
     }
 
     setCameraBounds() {
@@ -236,35 +236,65 @@ class DayRace extends Phaser.Scene {
 
     createFinishLine() {
         this.isFinishLineVisible = true;
-        const { width } = this.game.config;
-        const finishLine = this.physics.add.image(width / 2, width - 60, 'finish_line');
-        finishLine.scale = 2;
+        const { width, height } = this.game.config;
+        const finishLine = this.physics.add.image(width / 2, height / 2 - 350, 'finish_line');
+        finishLine.scale = 2.5;
         //const finishLine = this.physics.add.image(width / 3 + 85, 0, height - 150, 'player');
         finishLine.setDepth(0);
         this.physics.world.enable(finishLine);
         finishLine.body.setAllowGravity(false);
         finishLine.body.setImmovable(true);
         this.tweens.add({
-          targets: finishLine,
-          y: 400,
-          duration: 2000,
-          ease: 'Linear',
-          onComplete: () => {
-            this.physics.add.overlap(this.player, finishLine, this.showCongratulations, null, this);
-          }
+            targets: finishLine,
+            y: 400,
+            duration: 2000,
+            ease: 'Linear',
+            onComplete: () => {
+                this.physics.add.overlap(this.player, finishLine, this.showCongratulations, null, this);
+            }
         });
     }
 
     checkFinishLine() {
-        if (!this.isFinishLineVisible && this.player.y < 520) {
+        if (!this.isFinishLineVisible && this.player.y < 450) {
             this.createFinishLine();
         }
     }
 
-    showCongratulations() {
+    async saveUserRanking() {
+        const time = this.currentTime.toFixed(2);
+        const difficulty = this.difficulty;
+        const userId = JSON.parse(sessionStorage.getItem("userInfo"))._id;
+
+        try {
+            let url = 'http://localhost:3000';
+            const reqBody = {
+                "record": time,
+                "_idUser": userId,
+                "difficulty": difficulty
+            };
+            const response = await axios.post(`${url}/api/ranking`, reqBody);
+
+            if (response && response.data) {
+                sessionStorage.setItem("rankingInfo", JSON.stringify(response.data));
+            }
+            return true;
+        } catch (error) {
+            console.log(error);
+            if(error.response.status == 400 && error.response.data){
+                sessionStorage.setItem("rankingInfo", JSON.stringify(error.response.data[0]));
+                return false;
+            }
+            alert("Erro ao criar o usuário! Tente novamente mais tarde.");
+            throw error;
+        }
+    }
+
+    async showCongratulations() {
         this.finished = true;
         this.scene.pause();
-        this.scene.launch('CongratulationsScene', { currentTime: this.currentTime });
+        let newRecord = await this.saveUserRanking();
+        this.scene.launch('CongratulationsScene', { currentTime: this.currentTime, newRecord: newRecord });
     }
 
     gameOver() {
